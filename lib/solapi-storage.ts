@@ -47,11 +47,12 @@ export async function uploadImageToSolapiStorage(input: File | ImageUploadInput)
       fileType = input.type
       if (input.data instanceof Buffer) {
         fileSize = input.data.length
-        arrayBuffer = input.data.buffer.slice(input.data.byteOffset, input.data.byteOffset + input.data.byteLength)
+        arrayBuffer = input.data.buffer.slice(input.data.byteOffset, input.data.byteOffset + input.data.byteLength) as ArrayBuffer
       } else {
         // It's a File
-        fileSize = input.data.size
-        arrayBuffer = await input.data.arrayBuffer()
+        const fileData = input.data as File
+        fileSize = fileData.size
+        arrayBuffer = await fileData.arrayBuffer()
       }
     }
 
@@ -61,7 +62,7 @@ export async function uploadImageToSolapiStorage(input: File | ImageUploadInput)
       fileType,
     })
 
-    const base64File = btoa(String.fromCharCode(...new Uint8Array(arrayBuffer)))
+    const base64File = btoa(String.fromCharCode(...Array.from(new Uint8Array(arrayBuffer))))
 
     // HMAC-SHA256 인증을 위한 타임스탬프와 솔트
     const dateTime = new Date().toISOString()

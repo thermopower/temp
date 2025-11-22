@@ -622,7 +622,7 @@ export default function StatusPage() {
                             <div className="bg-gray-50 p-2 rounded">
                               <span className="text-gray-500 block text-xs">자체조치</span>
                               <span className="font-medium">
-                                {incident.alarmCriteria.selfResponse || incident.alarmCriteria["self-response"]}
+                                {incident.alarmCriteria.selfResponse}
                               </span>
                             </div>
                             <div className="bg-gray-50 p-2 rounded">

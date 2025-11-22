@@ -534,7 +534,7 @@ export default function ContactsPage() {
                         </div>
 
                         <div className="flex flex-wrap gap-1">
-                          <Badge className={roleColors[contact.role]} size="sm">
+                          <Badge className={roleColors[contact.role]}>
                             {roleLabels[contact.role]}
                           </Badge>
                           <Badge variant="outline" className="text-xs">

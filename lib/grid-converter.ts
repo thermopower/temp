@@ -43,8 +43,10 @@ export function latLonToGrid(lat: number, lon: number): GridCoordinates {
 }
 
 // 동해시 좌표
+const donghaeGrid = latLonToGrid(37.5247, 129.1144)
 export const DONGHAE_COORDS = {
   lat: 37.5247,
   lon: 129.1144,
-  ...latLonToGrid(37.5247, 129.1144),
+  x: donghaeGrid.x,
+  y: donghaeGrid.y,
 }

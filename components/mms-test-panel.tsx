@@ -61,8 +61,6 @@ export default function MMSTestPanel() {
       const response = await sendSMS({
         to: phoneNumber,
         message,
-        location,
-        accidentType,
       })
 
       setResult(response)

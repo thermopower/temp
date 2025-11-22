@@ -65,5 +65,3 @@ export const incidentTypeOptions = [
   "기타 비상상황"
 ]
 
-// ... existing code ...
-</```>

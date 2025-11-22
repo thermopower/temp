@@ -15,7 +15,7 @@ import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { AlertTriangle, Edit, RotateCcw, Send, CheckCircle2, CheckCircle } from "lucide-react"
-import type { Incident } from "@/lib/types"
+import type { Incident, AlertLevel } from "@/lib/types"
 import type { AuthorizedApprover } from "@/lib/authorized-approvers"
 import { Input } from "@/components/ui/input"
 
@@ -137,17 +137,17 @@ export function IncidentEditDialog({
     )
   }
 
-  const determineAlertLevel = (): string => {
+  const determineAlertLevel = (): AlertLevel => {
     if (alarmCriteria.casualties === "있음" || alarmCriteria.evacuation === "필요") {
-      return "적색경보"
+      return "red"
     }
     if (alarmCriteria.scope === "사업장 외부" || alarmCriteria.selfResponse === "불가능") {
-      return "황색경보"
+      return "yellow"
     }
     if (alarmCriteria.scope === "방류벽 외부" || alarmCriteria.selfResponse === "가능(소화수, 소석회 등)") {
-      return "청색경보"
+      return "blue"
     }
-    return "백색경보"
+    return "white"
   }
 
   const handleApprove = () => {
@@ -199,10 +199,10 @@ export function IncidentEditDialog({
             location: incident.location,
             type: incident.type,
             description: incident.description,
-            severity: incident.severity,
+            severity: incident.reportDetails?.severity,
             timestamp: incident.reportedAt,
-            chemicalType: incident.chemicalType,
-            otherChemicalName: incident.otherChemicalName,
+            chemicalType: incident.selectedChemical,
+            otherChemicalName: incident.customChemicalName,
           },
           modifiedIncident: {
             location: modifiedIncident.location,
@@ -215,8 +215,8 @@ export function IncidentEditDialog({
             reviewedAt: new Date(),
             selectedChemical,
             customChemicalName,
-            chemicalType: incident.chemicalType,
-            otherChemicalName: incident.otherChemicalName,
+            chemicalType: incident.selectedChemical,
+            otherChemicalName: incident.customChemicalName,
           },
           approverName: approver?.name,
           approverPhone: approver?.phone,
@@ -329,7 +329,7 @@ export function IncidentEditDialog({
   const currentAlertLevel = determineAlertLevel()
   const modified = isModified()
 
-  const shouldSendSms = currentAlertLevel === "황색경보" || currentAlertLevel === "적색경보"
+  const shouldSendSms = currentAlertLevel === "yellow" || currentAlertLevel === "red"
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
