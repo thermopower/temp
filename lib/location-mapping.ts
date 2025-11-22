@@ -102,30 +102,24 @@ export function convertDriveUrlToImageUrl(driveUrl: string): string {
   return driveUrl;
 }
 
+// 위치별 배치도 Google Drive URL (고정값)
+const LOCATION_LAYOUT_URLS: Record<string, string> = {
+  "1호기보일러": "",
+  "2호기보일러": "",
+  "1호기터빈": "",
+  "2호기터빈": "",
+  복수탈염약품저장탱크: "",
+  탈황폐수처리건물: "",
+  암모니아저장탱크: "",
+  부생연료유저장탱크: "",
+  수처리및폐수처리건물: "",
+  수처리및발전폐수처리건물: "",
+}
+
 export function getLocationLayoutUrl(location: string): string | null {
   const normalizedLocation = location.replace(/\s+/g, "").toLowerCase()
 
-  // Google Drive URL은 환경변수에서 JSON 형태로 로드
-  // 환경변수 형식: LOCATION_LAYOUT_URLS='{"1호기보일러":"https://...","2호기보일러":"https://..."}'
-  const defaultLocationUrls: Record<string, string> = {
-    "1호기보일러": "",
-    "2호기보일러": "",
-    "1호기터빈": "",
-    "2호기터빈": "",
-    복수탈염약품저장탱크: "",
-    탈황폐수처리건물: "",
-    암모니아저장탱크: "",
-    부생연료유저장탱크: "",
-    수처리및폐수처리건물: "",
-    수처리및발전폐수처리건물: "",
-  }
-
-  const envUrls = process.env.LOCATION_LAYOUT_URLS
-  const locationUrlMap: Record<string, string> = envUrls
-    ? { ...defaultLocationUrls, ...JSON.parse(envUrls) }
-    : defaultLocationUrls
-
-  for (const [key, url] of Object.entries(locationUrlMap)) {
+  for (const [key, url] of Object.entries(LOCATION_LAYOUT_URLS)) {
     if (normalizedLocation.includes(key) || key.includes(normalizedLocation)) {
       return url
     }
