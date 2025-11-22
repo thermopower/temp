@@ -106,7 +106,7 @@ export async function GET() {
       throw new Error("기상청 API key가 설정되지 않았습니다.")
     }
 
-    const baseUrl = "https://apihub.kma.go.kr/api/typ01/url/kma_sfctm2.php"
+    const baseUrl = process.env.KMA_APIHUB_URL || "https://apihub.kma.go.kr/api/typ01/url/kma_sfctm2.php"
 
     const now = new Date()
     const timestamps = []

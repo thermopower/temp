@@ -92,7 +92,8 @@ export async function GET() {
     console.log(`[v0] 동해시 격자 좌표: nx=${DONGHAE_COORDS.x}, ny=${DONGHAE_COORDS.y}`)
 
     // 기상청 단기예보 API 호출
-    const apiUrl = new URL("http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst")
+    const forecastBaseUrl = process.env.KMA_FORECAST_URL || "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst"
+    const apiUrl = new URL(forecastBaseUrl)
     apiUrl.searchParams.append("serviceKey", apiKey)
     apiUrl.searchParams.append("pageNo", "1")
     apiUrl.searchParams.append("numOfRows", "60")

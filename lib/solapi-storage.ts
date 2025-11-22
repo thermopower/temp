@@ -15,8 +15,8 @@ export interface ImageUploadInput {
 
 export async function uploadImageToSolapiStorage(input: File | ImageUploadInput): Promise<SolapiStorageUploadResponse> {
   try {
-    const apiKey = process.env.SOLAPI_API_KEY || "NCS7OH87AP211RVP"
-    const apiSecret = process.env.SOLAPI_API_SECRET || "HFNV5AIYV0RKIV4C8OYLLFFO4JD0YJH3"
+    const apiKey = process.env.SOLAPI_API_KEY || ""
+    const apiSecret = process.env.SOLAPI_API_SECRET || ""
 
     console.log("[v0] SOLAPI 스토리지 설정:", {
       hasApiKey: !!apiKey,
@@ -91,7 +91,8 @@ export async function uploadImageToSolapiStorage(input: File | ImageUploadInput)
     console.log("[v0] 솔라피 스토리지 API 호출")
 
     // 솔라피 스토리지 API 호출
-    const response = await fetch("https://api.solapi.com/storage/v1/files", {
+    const solapiStorageUrl = process.env.SOLAPI_STORAGE_URL || "https://api.solapi.com/storage/v1/files"
+    const response = await fetch(solapiStorageUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

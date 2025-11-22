@@ -42,11 +42,17 @@ export function latLonToGrid(lat: number, lon: number): GridCoordinates {
   return { x, y, lat, lng: lon }
 }
 
-// 동해시 좌표
-const donghaeGrid = latLonToGrid(37.5247, 129.1144)
+// 기본 좌표 (동해시) - 환경변수로 오버라이드 가능
+const DEFAULT_LAT = 37.5247
+const DEFAULT_LON = 129.1144
+
+const targetLat = process.env.LOCATION_LAT ? parseFloat(process.env.LOCATION_LAT) : DEFAULT_LAT
+const targetLon = process.env.LOCATION_LON ? parseFloat(process.env.LOCATION_LON) : DEFAULT_LON
+
+const locationGrid = latLonToGrid(targetLat, targetLon)
 export const DONGHAE_COORDS = {
-  lat: 37.5247,
-  lon: 129.1144,
-  x: donghaeGrid.x,
-  y: donghaeGrid.y,
+  lat: targetLat,
+  lon: targetLon,
+  x: locationGrid.x,
+  y: locationGrid.y,
 }

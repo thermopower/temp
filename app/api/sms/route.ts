@@ -86,7 +86,8 @@ export async function POST(request: NextRequest) {
     console.log("[v0] SOLAPI API 호출 시작")
     console.log("[v0] 인증 정보:", { apiKey, dateTime, saltLength: salt.length })
 
-    const response = await fetch("https://api.solapi.com/messages/v4/send", {
+    const solapiMessageUrl = process.env.SOLAPI_MESSAGE_URL || "https://api.solapi.com/messages/v4/send"
+    const response = await fetch(solapiMessageUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

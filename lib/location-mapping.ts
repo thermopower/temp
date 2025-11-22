@@ -105,18 +105,25 @@ export function convertDriveUrlToImageUrl(driveUrl: string): string {
 export function getLocationLayoutUrl(location: string): string | null {
   const normalizedLocation = location.replace(/\s+/g, "").toLowerCase()
 
-  const locationUrlMap: Record<string, string> = {
-    "1호기보일러": "https://drive.google.com/file/d/1HP2cdHKEJr13D1boDg-m82dVmF87kU8N/view?usp=sharing",
-    "2호기보일러": "https://drive.google.com/file/d/1ElaKUPGYgnE28LssFtlcPagNLrv22q78/view?usp=sharing",
-    "1호기터빈": "https://drive.google.com/file/d/1k4RGZg1zfQbd7gRMVtTuBu3VZ6Dvh4We/view?usp=sharing",
-    "2호기터빈": "https://drive.google.com/file/d/1AC9xb4zlPBJd7r-a3VuWEBZAGqoVlO5L/view?usp=sharing",
-    복수탈염약품저장탱크: "https://drive.google.com/file/d/19vMoVhE21VvKmhkwsLje5p5LK_kgrOFn/view?usp=sharing",
-    탈황폐수처리건물: "https://drive.google.com/file/d/17xIbXb0P2JtgU4Cu9dWPpVcslxrUOcAs/view?usp=sharing",
-    암모니아저장탱크: "https://drive.google.com/file/d/11BKSbdRwUKNicRkIbvS0y6veMzgjYbU4/view?usp=sharing",
-    부생연료유저장탱크: "https://drive.google.com/file/d/1uD3YZtbaFkeRlAKWDyF3WErEyGuELkei/view?usp=sharing",
-    수처리및폐수처리건물: "https://drive.google.com/file/d/1xFVxzD8y7Ar68ZmYmZYUs89P5CSwnkNx/view?usp=sharing",
-    수처리및발전폐수처리건물: "https://drive.google.com/file/d/1xFVxzD8y7Ar68ZmYmZYUs89P5CSwnkNx/view?usp=sharing",
+  // Google Drive URL은 환경변수에서 JSON 형태로 로드
+  // 환경변수 형식: LOCATION_LAYOUT_URLS='{"1호기보일러":"https://...","2호기보일러":"https://..."}'
+  const defaultLocationUrls: Record<string, string> = {
+    "1호기보일러": "",
+    "2호기보일러": "",
+    "1호기터빈": "",
+    "2호기터빈": "",
+    복수탈염약품저장탱크: "",
+    탈황폐수처리건물: "",
+    암모니아저장탱크: "",
+    부생연료유저장탱크: "",
+    수처리및폐수처리건물: "",
+    수처리및발전폐수처리건물: "",
   }
+
+  const envUrls = process.env.LOCATION_LAYOUT_URLS
+  const locationUrlMap: Record<string, string> = envUrls
+    ? { ...defaultLocationUrls, ...JSON.parse(envUrls) }
+    : defaultLocationUrls
 
   for (const [key, url] of Object.entries(locationUrlMap)) {
     if (normalizedLocation.includes(key) || key.includes(normalizedLocation)) {
