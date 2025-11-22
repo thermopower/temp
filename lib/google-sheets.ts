@@ -11,12 +11,15 @@ export interface Employee {
   phone: string
   company: string
   department: string
+  position?: string
   role: "employee"
   isActive: boolean
   emergencyRole?: string
   emergencyRoleDescription?: string
   emergencyDuty?: string
 }
+
+
 
 export interface Partner {
   id: string
@@ -73,7 +76,7 @@ const mockVisitorContacts = [
   },
 ]
 
-const mockEmployeeContacts = [
+const mockEmployeeContacts: Employee[] = [
   {
     id: "emp-001",
     name: "김동해",
@@ -83,6 +86,8 @@ const mockEmployeeContacts = [
     role: "employee" as const,
     isActive: true,
     emergencyRole: "commander",
+    emergencyRoleDescription: "",
+    emergencyDuty: "",
   },
   {
     id: "emp-002",
@@ -93,6 +98,8 @@ const mockEmployeeContacts = [
     role: "employee" as const,
     isActive: true,
     emergencyRole: "field_response_leader",
+    emergencyRoleDescription: "",
+    emergencyDuty: "",
   },
   {
     id: "emp-003",
@@ -103,6 +110,8 @@ const mockEmployeeContacts = [
     role: "employee" as const,
     isActive: true,
     emergencyRole: "emergency_contact_leader",
+    emergencyRoleDescription: "",
+    emergencyDuty: "",
   },
   {
     id: "emp-004",
@@ -113,6 +122,8 @@ const mockEmployeeContacts = [
     role: "employee" as const,
     isActive: true,
     emergencyRole: "safety_coordinator",
+    emergencyRoleDescription: "",
+    emergencyDuty: "",
   },
   {
     id: "emp-005",
@@ -122,6 +133,8 @@ const mockEmployeeContacts = [
     department: "운영팀",
     role: "employee" as const,
     isActive: true,
+    emergencyRoleDescription: "",
+    emergencyDuty: "",
   },
   {
     id: "emp-006",
@@ -131,6 +144,8 @@ const mockEmployeeContacts = [
     department: "정비팀",
     role: "employee" as const,
     isActive: true,
+    emergencyRoleDescription: "",
+    emergencyDuty: "",
   },
 ]
 

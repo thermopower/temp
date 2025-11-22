@@ -21,20 +21,23 @@ export type EmergencyRole =
   | "pr_leader" // 홍보반장
 
 // 사용자/연락처 타입 (실제 조직 반영)
+export type Role = "employee" | "partner" | "visitor";
+
 export interface Contact {
-  id: string
-  name: string
-  phone: string
-  role: "employee" | "contractor" | "visitor"
-  department?: string
-  company?: string
-  emergencyRole?: EmergencyRole
-  isActive: boolean
-  building?: string // 상주 건물
-  shift?: string // 교대 근무
-  emergencyRoleDescription?: string // D열: 역할 (비상 대응 역할)
-  emergencyDuty?: string // E열: 임무 (비상 대응 임무)
+  id: string;
+  name: string;
+  phone: string;
+  role: Role;
+  department?: string;
+  company?: string;
+  emergencyRole?: EmergencyRole;
+  isActive: boolean;
+  building?: string; // 상주 건물
+  shift?: string; // 교대 근무
+  emergencyRoleDescription?: string; // D열: 역할 (비상 대응 역할)
+  emergencyDuty?: string; // E열: 임무 (비상 대응 임무)
 }
+
 
 // 사고 정보 타입 (실제 매뉴얼 반영)
 export interface Incident {

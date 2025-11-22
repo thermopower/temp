@@ -36,7 +36,7 @@ export async function GET() {
       name: emp.name,
       phone: emp.phone,
       department: emp.department,
-      position: emp.position,
+      position: (emp as any).position,
       hasRole: !!(emp.emergencyRoleDescription && emp.emergencyRoleDescription.trim() !== ""),
       hasDuty: !!(emp.emergencyDuty && emp.emergencyDuty.trim() !== ""),
       role: emp.emergencyRoleDescription || "(없음)",
@@ -56,7 +56,8 @@ export async function GET() {
       employeesWithoutRoleDuty: withNeither.map((emp) => ({
         name: emp.name,
         department: emp.department,
-        position: emp.position,
+        // position omitted as not available
+
       })),
       detailedReport,
       message: `총 ${employees.length}명 중 ${withBoth.length}명이 역할과 임무 정보를 모두 가지고 있습니다.`,

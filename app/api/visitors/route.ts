@@ -54,7 +54,7 @@ export async function GET(request: Request) {
 
     console.log("추출된 스프레드시트 ID:", spreadsheetId)
 
-    const visitors = await fetchVisitorsFromSheet(spreadsheetId, range)
+    const visitors = await fetchVisitorsFromSheet();
 
     return NextResponse.json({
       success: true,

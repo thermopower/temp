@@ -52,7 +52,6 @@ export async function GET(request: NextRequest) {
       rowCount: result.rowCount,
       columnCount: result.columnCount,
       headers: result.headers,
-      needsApiActivation: result.needsApiActivation,
     })
   } catch (error) {
     console.error("구글시트 연결 테스트 실패:", error)
